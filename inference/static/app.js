@@ -17,7 +17,7 @@ function setStatus(message, state) {
 }
 
 function clearResult() {
-  responseOutput.textContent = "等待一次推理后显示回答。";
+  responseOutput.textContent = "Your response will appear here after an inference run.";
   promptTokensOutput.textContent = "—";
   outputTokensOutput.textContent = "—";
   latencyOutput.textContent = "—";
@@ -51,10 +51,10 @@ function renderRecord(record) {
   responseOutput.textContent = record.response;
   promptTokensOutput.textContent = String(record.prompt_tokens);
   outputTokensOutput.textContent = String(record.output_tokens);
-  latencyOutput.textContent = `${record.latency_seconds.toFixed(2)} 秒`;
+  latencyOutput.textContent = `${record.latency_seconds.toFixed(2)} s`;
   tpsOutput.textContent =
     record.generation_tokens_per_second === null
-      ? "暂不可用"
+      ? "Not available"
       : `${record.generation_tokens_per_second.toFixed(2)} tokens/s`;
   runIdOutput.textContent = record.run_id;
 }
@@ -64,14 +64,14 @@ form.addEventListener("submit", async (event) => {
   const prompt = promptInput.value.trim();
   if (!prompt) {
     clearResult();
-    setStatus("请输入 Prompt 后再生成。", "error");
+    setStatus("Enter a prompt before generating.", "error");
     promptInput.focus();
     return;
   }
 
   clearResult();
   submitButton.disabled = true;
-  setStatus("正在生成", "loading");
+  setStatus("Generating...", "loading");
 
   try {
     const response = await fetch("/api/infer", {
@@ -83,28 +83,28 @@ form.addEventListener("submit", async (event) => {
     try {
       record = await response.json();
     } catch {
-      throw new Error("服务返回了无法读取的响应。请检查本地推理服务。");
+      throw new Error("The server returned an unreadable response. Check that the local inference service is running.");
     }
 
     if (!response.ok) {
       throw new Error(
         typeof record.error === "string"
           ? record.error
-          : "本次推理失败，请检查本地推理服务。",
+          : "Inference failed. Check that the local inference service is running.",
       );
     }
     if (!isValidRecord(record)) {
-      throw new Error("服务返回的数据不完整，本次结果未显示。请重试。");
+      throw new Error("The server returned an incomplete result. No result was shown. Please try again.");
     }
 
     renderRecord(record);
-    setStatus("生成完成", "success");
+    setStatus("Generation complete", "success");
   } catch (error) {
     clearResult();
     const message =
       error instanceof Error && error.message
         ? error.message
-        : "请求失败，请检查本地推理服务。";
+        : "Request failed. Check that the local inference service is running.";
     setStatus(message, "error");
   } finally {
     submitButton.disabled = false;

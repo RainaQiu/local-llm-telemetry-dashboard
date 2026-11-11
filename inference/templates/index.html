@@ -1,17 +1,17 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en-US">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="通过本地 llama-server 运行一次模型推理并查看同次请求的指标。"
+      content="Run a local model inference through llama-server and inspect metrics from the same request."
     />
-    <title>本地模型推理演示</title>
+    <title>Local Model Inference Demo</title>
     <style>
       :root {
         color-scheme: light;
-        font-family: "Segoe UI", "Microsoft YaHei UI", sans-serif;
+        font-family: "Segoe UI", Arial, sans-serif;
         color: #17233b;
         background: #f3f6fb;
         font-synthesis: none;
@@ -375,60 +375,60 @@
       <header class="topbar">
         <div class="topbar-brand">
           <span class="brand-mark" aria-hidden="true">↗</span>
-          <span>本地推理工作台</span>
+          <span>Local Inference Workbench</span>
         </div>
-        <span class="local-pill"><span class="local-dot"></span>本机服务</span>
+        <span class="local-pill"><span class="local-dot"></span>Runs locally</span>
       </header>
 
       <main>
         <section class="intro" aria-labelledby="page-title">
           <p class="eyebrow">MEMBER A · SPRINT 2</p>
-          <h1 id="page-title">本地模型推理</h1>
+          <h1 id="page-title">Local Model Inference</h1>
           <p class="intro-copy">
-            输入一个 Prompt，查看本次回答与对应的推理指标。回答和 token 数据来自同一次 llama-server 响应；端到端延迟由本机客户端计时。
+            Enter a prompt to view the response and metrics for this inference run. The response and token counts come from one llama-server response; end-to-end latency is measured by this client.
           </p>
         </section>
 
-        <section class="panel prompt-panel" aria-label="输入 Prompt">
+        <section class="panel prompt-panel" aria-label="Prompt input">
           <form id="inference-form">
-            <label for="prompt">你的 Prompt</label>
+            <label for="prompt">Your prompt</label>
             <textarea
               id="prompt"
               name="prompt"
               maxlength="4000"
-              placeholder="例如：用一句话解释什么是本地大语言模型。"
+              placeholder="For example: Explain a local large language model in one sentence."
               required
             ></textarea>
-            <p class="field-note">最多 4000 个字符。请求会发送到此应用配置的 llama-server。</p>
+            <p class="field-note">Up to 4,000 characters. Requests are sent to the llama-server configured for this app.</p>
             <div class="submit-row">
-              <button id="submit" type="submit">生成回答 <span aria-hidden="true">→</span></button>
-              <p id="status" data-state="idle" role="status" aria-live="polite">准备就绪</p>
+              <button id="submit" type="submit">Generate response <span aria-hidden="true">→</span></button>
+              <p id="status" data-state="idle" role="status" aria-live="polite">Ready</p>
             </div>
           </form>
         </section>
 
         <section class="panel result-panel" aria-labelledby="result-title">
           <div class="result-heading">
-            <h2 id="result-title">本次结果</h2>
-            <span class="result-label">同一请求 · 同一 run_id</span>
+            <h2 id="result-title">Run result</h2>
+            <span class="result-label">One request · One run_id</span>
           </div>
-          <pre id="response" tabindex="0" aria-live="polite">等待一次推理后显示回答。</pre>
+          <pre id="response" tabindex="0" aria-live="polite">Your response will appear here after an inference run.</pre>
 
-          <div class="metric-grid" aria-label="推理指标">
+          <div class="metric-grid" aria-label="Inference metrics">
             <div class="metric">
-              <span class="metric-label">输入 Tokens</span>
+              <span class="metric-label">Prompt tokens</span>
               <strong class="metric-value" id="prompt-tokens">—</strong>
             </div>
             <div class="metric">
-              <span class="metric-label">输出 Tokens</span>
+              <span class="metric-label">Output tokens</span>
               <strong class="metric-value" id="output-tokens">—</strong>
             </div>
             <div class="metric">
-              <span class="metric-label">端到端延迟</span>
+              <span class="metric-label">End-to-end latency</span>
               <strong class="metric-value" id="latency">—</strong>
             </div>
             <div class="metric">
-              <span class="metric-label">生成速度</span>
+              <span class="metric-label">Generation speed</span>
               <strong class="metric-value" id="tps">—</strong>
             </div>
           </div>
@@ -441,8 +441,8 @@
       </main>
 
       <footer>
-        指标随同次请求一并返回；本地记录由后端保存到 inference/runs。<br />
-        此页面不提供模型切换、资源监控或图片输入。
+        Metrics are returned with the same request; local records are saved in inference/runs.<br />
+        This page does not include model switching, resource monitoring, or image input.
       </footer>
     </div>
   </body>

@@ -127,6 +127,25 @@ class InferenceAppTests(unittest.TestCase):
         # Browser QA: confirm loading disables the button, errors replace old
         # results, and success renders response, metrics, and run ID together.
 
+    def test_public_page_and_readme_are_in_english(self):
+        page = self.client.get("/").get_data(as_text=True)
+        script_response = self.client.get("/static/app.js")
+        self.assertEqual(script_response.status_code, 200)
+        script = script_response.get_data(as_text=True)
+        script_response.close()
+        self.assertIn('lang="en-US"', page)
+        self.assertIn("Local Model Inference", page)
+        self.assertIn("Generating...", script)
+        self.assertIn("Not available", script)
+        self.assertNotRegex(page + script, r"[\u4e00-\u9fff]")
+
+        readme = (Path(__file__).resolve().parents[1] / "README.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("A local-first inference telemetry demo", readme)
+        self.assertIn("unittest discover", readme)
+        self.assertNotRegex(readme, r"[\u4e00-\u9fff]")
+
 
 if __name__ == "__main__":
     unittest.main()
