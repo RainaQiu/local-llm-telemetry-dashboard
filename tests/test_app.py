@@ -107,7 +107,25 @@ class InferenceAppTests(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.mimetype, "text/html")
-        self.assertIn("<!doctype html>", response.get_data(as_text=True).lower())
+        html = response.get_data(as_text=True)
+        self.assertIn("<!doctype html>", html.lower())
+        for element_id in (
+            "prompt",
+            "submit",
+            "status",
+            "response",
+            "prompt-tokens",
+            "output-tokens",
+            "latency",
+            "tps",
+            "run-id",
+        ):
+            with self.subTest(element_id=element_id):
+                self.assertIn(f'id="{element_id}"', html)
+        self.assertIn("/static/app.js", html)
+
+        # Browser QA: confirm loading disables the button, errors replace old
+        # results, and success renders response, metrics, and run ID together.
 
 
 if __name__ == "__main__":

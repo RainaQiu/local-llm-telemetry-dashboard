@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="通过本地 llama-server 运行一次模型推理并查看同次请求的指标。"
+    />
+    <title>本地模型推理演示</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Segoe UI", "Microsoft YaHei UI", sans-serif;
+        color: #17233b;
+        background: #f3f6fb;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        --muted: #66738b;
+        --line: #e4e9f1;
+        --blue: #315be8;
+        --blue-dark: #2448c5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        min-height: 100vh;
+        margin: 0;
+        background:
+          radial-gradient(ellipse at 78% 4%, rgba(91, 129, 255, 0.11), transparent 33rem),
+          #f3f6fb;
+      }
+
+      .page-shell {
+        width: min(100% - 40px, 940px);
+        margin: 0 auto;
+        padding: 28px 0 32px;
+      }
+
+      .topbar,
+      .topbar-brand,
+      .intro-row,
+      .submit-row,
+      .result-heading,
+      .metric-grid,
+      .run-id-row {
+        display: flex;
+        align-items: center;
+      }
+
+      .topbar {
+        justify-content: space-between;
+        min-height: 40px;
+        margin-bottom: 42px;
+      }
+
+      .topbar-brand {
+        gap: 10px;
+        color: #25334e;
+        font-size: 14px;
+        font-weight: 650;
+        letter-spacing: 0.01em;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 30px;
+        height: 30px;
+        place-items: center;
+        border-radius: 9px;
+        background: #e8edff;
+        color: var(--blue);
+        font-size: 17px;
+      }
+
+      .local-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 11px;
+        border: 1px solid #dbe4f5;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        color: #51617e;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .local-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #20a474;
+        box-shadow: 0 0 0 3px #e1f5ed;
+      }
+
+      .intro {
+        margin: 0 0 23px;
+      }
+
+      .eyebrow {
+        margin: 0 0 11px;
+        color: var(--blue);
+        font-size: 11px;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+      }
+
+      h1 {
+        margin: 0;
+        color: #17233b;
+        font-size: clamp(29px, 5vw, 39px);
+        font-weight: 720;
+        letter-spacing: -0.045em;
+        line-height: 1.17;
+      }
+
+      .intro-copy {
+        max-width: 650px;
+        margin: 13px 0 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.65;
+      }
+
+      .panel {
+        border: 1px solid rgba(221, 228, 239, 0.92);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 18px 48px rgba(29, 48, 87, 0.07);
+      }
+
+      .prompt-panel {
+        padding: 25px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 9px;
+        color: #263550;
+        font-size: 14px;
+        font-weight: 650;
+      }
+
+      textarea {
+        display: block;
+        width: 100%;
+        min-height: 145px;
+        resize: vertical;
+        padding: 15px 16px;
+        border: 1px solid #dce3ee;
+        border-radius: 11px;
+        outline: none;
+        background: #fbfcfe;
+        color: #1c2941;
+        font: inherit;
+        font-size: 14px;
+        line-height: 1.6;
+        transition: border-color 140ms ease, box-shadow 140ms ease;
+      }
+
+      textarea::placeholder {
+        color: #98a3b6;
+      }
+
+      textarea:focus {
+        border-color: #7792f3;
+        box-shadow: 0 0 0 3px rgba(49, 91, 232, 0.12);
+      }
+
+      .field-note {
+        margin: 8px 0 0;
+        color: #7a879c;
+        font-size: 12px;
+      }
+
+      .submit-row {
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 19px;
+      }
+
+      button {
+        display: inline-flex;
+        min-height: 43px;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        padding: 0 18px;
+        border: 0;
+        border-radius: 10px;
+        background: var(--blue);
+        color: #fff;
+        cursor: pointer;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 650;
+        transition: background 140ms ease, transform 140ms ease;
+      }
+
+      button:hover:not(:disabled) {
+        transform: translateY(-1px);
+        background: var(--blue-dark);
+      }
+
+      button:focus-visible {
+        outline: 3px solid rgba(49, 91, 232, 0.28);
+        outline-offset: 3px;
+      }
+
+      button:disabled {
+        cursor: wait;
+        opacity: 0.72;
+      }
+
+      #status {
+        min-height: 20px;
+        margin: 0;
+        color: #718098;
+        font-size: 13px;
+      }
+
+      #status[data-state="loading"] {
+        color: #4b63b7;
+      }
+
+      #status[data-state="success"] {
+        color: #16825e;
+      }
+
+      #status[data-state="error"] {
+        color: #b54742;
+      }
+
+      .result-panel {
+        margin-top: 18px;
+        padding: 24px 25px 21px;
+      }
+
+      .result-heading {
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      h2 {
+        margin: 0;
+        color: #273651;
+        font-size: 15px;
+        font-weight: 680;
+      }
+
+      .result-label {
+        color: #8995a8;
+        font-size: 11px;
+        letter-spacing: 0.04em;
+      }
+
+      #response {
+        min-height: 76px;
+        max-height: 320px;
+        overflow: auto;
+        margin: 0;
+        padding: 14px 15px;
+        border: 1px solid #e8ecf3;
+        border-radius: 10px;
+        background: #f8faff;
+        color: #283651;
+        font-family: inherit;
+        font-size: 14px;
+        line-height: 1.7;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+
+      .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 11px;
+        margin-top: 15px;
+      }
+
+      .metric {
+        min-height: 78px;
+        padding: 13px 14px;
+        border: 1px solid #e7ebf2;
+        border-radius: 10px;
+        background: #fff;
+      }
+
+      .metric-label {
+        display: block;
+        margin-bottom: 9px;
+        color: #7b879c;
+        font-size: 11px;
+      }
+
+      .metric-value {
+        display: block;
+        overflow-wrap: anywhere;
+        color: #25334e;
+        font-size: 16px;
+        font-variant-numeric: tabular-nums;
+        font-weight: 670;
+      }
+
+      .run-id-row {
+        min-width: 0;
+        gap: 9px;
+        margin-top: 14px;
+        color: #78859a;
+        font-size: 11px;
+      }
+
+      #run-id {
+        overflow: hidden;
+        color: #5d6a81;
+        font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      footer {
+        margin-top: 22px;
+        color: #8a96a9;
+        font-size: 11px;
+        line-height: 1.55;
+        text-align: center;
+      }
+
+      @media (max-width: 640px) {
+        .page-shell {
+          width: min(100% - 28px, 940px);
+          padding-top: 17px;
+        }
+
+        .topbar {
+          margin-bottom: 32px;
+        }
+
+        .prompt-panel,
+        .result-panel {
+          padding: 19px;
+        }
+
+        .metric-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 380px) {
+        .local-pill {
+          padding: 6px 8px;
+          font-size: 11px;
+        }
+
+        .topbar-brand {
+          font-size: 12px;
+        }
+
+        .metric {
+          padding: 12px 10px;
+        }
+      }
+    </style>
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="topbar-brand">
+          <span class="brand-mark" aria-hidden="true">↗</span>
+          <span>本地推理工作台</span>
+        </div>
+        <span class="local-pill"><span class="local-dot"></span>本机服务</span>
+      </header>
+
+      <main>
+        <section class="intro" aria-labelledby="page-title">
+          <p class="eyebrow">MEMBER A · SPRINT 2</p>
+          <h1 id="page-title">本地模型推理</h1>
+          <p class="intro-copy">
+            输入一个 Prompt，查看本次回答与对应的推理指标。回答和 token 数据来自同一次 llama-server 响应；端到端延迟由本机客户端计时。
+          </p>
+        </section>
+
+        <section class="panel prompt-panel" aria-label="输入 Prompt">
+          <form id="inference-form">
+            <label for="prompt">你的 Prompt</label>
+            <textarea
+              id="prompt"
+              name="prompt"
+              maxlength="4000"
+              placeholder="例如：用一句话解释什么是本地大语言模型。"
+              required
+            ></textarea>
+            <p class="field-note">最多 4000 个字符。请求会发送到此应用配置的 llama-server。</p>
+            <div class="submit-row">
+              <button id="submit" type="submit">生成回答 <span aria-hidden="true">→</span></button>
+              <p id="status" data-state="idle" role="status" aria-live="polite">准备就绪</p>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel result-panel" aria-labelledby="result-title">
+          <div class="result-heading">
+            <h2 id="result-title">本次结果</h2>
+            <span class="result-label">同一请求 · 同一 run_id</span>
+          </div>
+          <pre id="response" tabindex="0" aria-live="polite">等待一次推理后显示回答。</pre>
+
+          <div class="metric-grid" aria-label="推理指标">
+            <div class="metric">
+              <span class="metric-label">输入 Tokens</span>
+              <strong class="metric-value" id="prompt-tokens">—</strong>
+            </div>
+            <div class="metric">
+              <span class="metric-label">输出 Tokens</span>
+              <strong class="metric-value" id="output-tokens">—</strong>
+            </div>
+            <div class="metric">
+              <span class="metric-label">端到端延迟</span>
+              <strong class="metric-value" id="latency">—</strong>
+            </div>
+            <div class="metric">
+              <span class="metric-label">生成速度</span>
+              <strong class="metric-value" id="tps">—</strong>
+            </div>
+          </div>
+
+          <div class="run-id-row">
+            <span>Run ID</span>
+            <code id="run-id">—</code>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        指标随同次请求一并返回；本地记录由后端保存到 inference/runs。<br />
+        此页面不提供模型切换、资源监控或图片输入。
+      </footer>
+    </div>
+  </body>
+</html>
