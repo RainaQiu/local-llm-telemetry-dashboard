@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "run_id": "ace10f5c-9503-4987-825a-adb33b8c32d3",
+  "timestamp_utc": "2026-11-11T23:51:23.056656Z",
+  "model_id": "local_assets/models/Qwen3.5-0.8B-Q4_K_M.gguf",
+  "prompt": "In one sentence, what does a local language model do?",
+  "response": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its internal knowledge base and training data to perform tasks like translation, summarization, or logical reasoning.",
+  "prompt_tokens": 24,
+  "output_tokens": 40,
+  "latency_seconds": 1.9158844000194222,
+  "generation_tokens_per_second": 23.155844772716478,
+  "status": "success",
+  "server_usage": {
+    "completion_tokens": 40,
+    "prompt_tokens": 24,
+    "total_tokens": 64,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "server_timings": {
+    "cache_n": 0,
+    "prompt_n": 24,
+    "prompt_ms": 225.666,
+    "prompt_per_token_ms": 9.40275,
+    "prompt_per_second": 106.35186514583499,
+    "predicted_n": 40,
+    "predicted_ms": 1684.24,
+    "predicted_per_token_ms": 43.185641025641026,
+    "predicted_per_second": 23.155844772716478
+  },
+  "server_raw_response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its internal knowledge base and training data to perform tasks like translation, summarization, or logical reasoning."
+        }
+      }
+    ],
+    "created": 1794441083,
+    "model": "local_assets/models/Qwen3.5-0.8B-Q4_K_M.gguf",
+    "system_fingerprint": "b12242-3b4d6ab3f",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 40,
+      "prompt_tokens": 24,
+      "total_tokens": 64,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-ZdXnCPB7horSrTEDBAyl8wSeKw462t9D",
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 24,
+      "prompt_ms": 225.666,
+      "prompt_per_token_ms": 9.40275,
+      "prompt_per_second": 106.35186514583499,
+      "predicted_n": 40,
+      "predicted_ms": 1684.24,
+      "predicted_per_token_ms": 43.185641025641026,
+      "predicted_per_second": 23.155844772716478
+    }
+  }
+}

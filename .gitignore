@@ -1,0 +1,10 @@
+.venv/
+.cache/
+.superpowers/
+local_assets/
+inference/runs/
+__pycache__/
+*.py[cod]
+*.zip
+*.gguf
+*.log

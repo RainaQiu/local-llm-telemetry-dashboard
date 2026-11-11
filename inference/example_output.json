@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "run_id": "example-only",
+  "timestamp_utc": null,
+  "model_id": null,
+  "prompt": null,
+  "response": null,
+  "prompt_tokens": null,
+  "output_tokens": null,
+  "latency_seconds": null,
+  "generation_tokens_per_second": null,
+  "status": "example",
+  "server_usage": null,
+  "server_timings": null,
+  "server_raw_response": null
+}

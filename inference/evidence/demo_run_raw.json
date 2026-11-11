@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its internal knowledge base and training data to perform tasks like translation, summarization, or logical reasoning.",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1794441083,
+  "id": "chatcmpl-ZdXnCPB7horSrTEDBAyl8wSeKw462t9D",
+  "model": "local_assets/models/Qwen3.5-0.8B-Q4_K_M.gguf",
+  "object": "chat.completion",
+  "system_fingerprint": "b12242-3b4d6ab3f",
+  "timings": {
+    "cache_n": 0,
+    "predicted_ms": 1684.24,
+    "predicted_n": 40,
+    "predicted_per_second": 23.155844772716478,
+    "predicted_per_token_ms": 43.185641025641026,
+    "prompt_ms": 225.666,
+    "prompt_n": 24,
+    "prompt_per_second": 106.35186514583499,
+    "prompt_per_token_ms": 9.40275
+  },
+  "usage": {
+    "completion_tokens": 40,
+    "prompt_tokens": 24,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "total_tokens": 64
+  }
+}

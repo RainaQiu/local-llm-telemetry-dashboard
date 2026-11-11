@@ -65,3 +65,5 @@ python -m unittest discover -s tests -v
 ```
 
 The tests use simulated HTTP responses and do not require model weights or a running `llama-server`. A passing test suite does not mean that real model inference has been run.
+
+For the pinned Windows runtime, model checksums, launch commands, and verified run evidence, see the [local inference guide](inference/README.md).
