@@ -11,7 +11,7 @@ Captured on 2026-11-11. The records below came from live requests through the br
 - llama.cpp release: [`b12242`](https://github.com/ggml-org/llama.cpp/releases/tag/b12242), `llama-server` version `0.9.0-dev (build 12242, commit 3b4d6ab3f)`, built with Clang `20.1.8` for Windows x86_64.
 - Runtime archive: `llama-b12242-bin-win-cpu-x64.zip`, 24,931,401 bytes; SHA-256 `4723cd1f1b10169b6ca681f787ea37238e449b1c56538b4b90c71a82fad949a0`.
 - Model: [`Qwen3.5-0.8B-Q4_K_M.gguf`](https://huggingface.co/notschmee/Qwen3.5-0.8B-GGUF/blob/1870603ac8ab59c7ddb9d94cccf3b297e379538f/Qwen3.5-0.8B-Q4_K_M.gguf), from revision `1870603ac8ab59c7ddb9d94cccf3b297e379538f`, 590,880,672 bytes; SHA-256 `be5b3cb8c2f3ebd791349c9c775ea38950f23a2b9e792ca2f0411597dd172988`.
-- At measurement, ignored `local_assets/` occupied 680,176,953 bytes (648.67 MiB), including the model, runtime archive, extracted runtime, and local logs. Model size is not RAM or VRAM usage.
+- At measurement, ignored `local_assets/` occupied 680,179,779 bytes (648.67 MiB), including the model, runtime archive, extracted runtime, and local logs. Model size is not RAM or VRAM usage.
 
 ## Reproduction command
 
@@ -43,9 +43,20 @@ The UI was marked `en-US`. For each request, the browser's displayed run ID matc
 
 | Input | `run_id` | Prompt / output tokens | Client latency | Server generation TPS |
 |---|---|---:|---:|---:|
-| English | `ace10f5c-9503-4987-825a-adb33b8c32d3` | 24 / 40 | 1.9158844000194222 s | 23.155844772716478 |
-| Chinese | `20d563fa-cf11-47f7-818f-2d36d7b34dae` | 20 / 47 | 1.41722059994936 s | 36.224066324690476 |
-| Quoted and multiline | `e2c88373-0036-47b1-924e-ccdf6db28906` | 32 / 33 | 1.153772999998182 s | 34.14003388398363 |
+| English | `5d535edd-096a-4227-a9b9-8e9327f143d7` | 24 / 40 | 1.5066202000016347 s | 27.346639693998114 |
+| Chinese | `c757ef33-d5da-4721-a75e-6de0c29751aa` | 20 / 47 | 1.227215199964121 s | 39.94171982099163 |
+| Quoted and multiline | `31efb908-f34d-4fb6-9289-814199b4f5b3` | 32 / 33 | 0.9192063999944367 s | 38.23369870411658 |
+
+Exact prompts sent in the browser UI:
+
+1. English: `In one sentence, what does a local language model do?`
+2. Chinese: `用一句话解释本地语言模型是什么。`
+3. Quoted and multiline (the line break shown here was part of the prompt):
+
+```text
+Explain the phrase "local model" in one short sentence.
+Include the word "offline".
+```
 
 Responses returned by this model:
 
@@ -61,7 +72,7 @@ A real request before setting `--reasoning off` returned `finish_reason=length`,
 
 ## Evidence files and scope
 
-- [`demo_run.json`](demo_run.json): normalized record for `ace10f5c-9503-4987-825a-adb33b8c32d3`.
+- [`demo_run.json`](demo_run.json): normalized record for `5d535edd-096a-4227-a9b9-8e9327f143d7`.
 - [`demo_run_raw.json`](demo_run_raw.json): raw upstream response for that same request.
 - [`screenshot.png`](screenshot.png): browser capture showing that response, metrics, and the same run ID. The browser validation reported no JavaScript console errors or page errors.
 - No GPU runtime or `mmproj` was downloaded; no GPU offload or image inference is claimed. The automated test suite uses simulated responses and is separate evidence from these real runs.

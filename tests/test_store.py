@@ -1,6 +1,8 @@
 import json
 import tempfile
 import unittest
+from concurrent.futures import ThreadPoolExecutor
+from threading import Barrier
 from pathlib import Path
 from unittest.mock import patch
 
@@ -60,6 +62,53 @@ class StoreTests(unittest.TestCase):
                 len((data_dir / "history.jsonl").read_text(encoding="utf-8").splitlines()),
                 1,
             )
+
+
+    def test_concurrent_saves_record_every_successful_run_once(self):
+        worker_count = 2
+        saves_per_worker = 200
+        start_together = Barrier(worker_count)
+
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            data_dir = Path(temporary_directory) / "runs"
+
+            def save_records(worker):
+                successes = []
+                errors = []
+                for index in range(saves_per_worker):
+                    run_id = f"worker-{worker}-{index}"
+                    record = {
+                        "run_id": run_id,
+                        "prompt": "x" * 4000,
+                        "response": "concurrent result",
+                    }
+                    start_together.wait(timeout=10)
+                    try:
+                        save_run(record, data_dir)
+                    except Exception as error:
+                        errors.append((run_id, error))
+                    else:
+                        successes.append(run_id)
+                return successes, errors
+
+            with ThreadPoolExecutor(max_workers=worker_count) as executor:
+                results = list(executor.map(save_records, range(worker_count)))
+
+            successful_ids = [run_id for successes, _ in results for run_id in successes]
+            errors = [error for _, failures in results for error in failures]
+            self.assertEqual(errors, [])
+
+            history_lines = (data_dir / "history.jsonl").read_text(encoding="utf-8").splitlines()
+            history_ids = [json.loads(line)["run_id"] for line in history_lines]
+            expected_ids = {
+                f"worker-{worker}-{index}"
+                for worker in range(worker_count)
+                for index in range(saves_per_worker)
+            }
+            self.assertEqual(len(successful_ids), len(expected_ids))
+            self.assertEqual(len(history_ids), len(expected_ids))
+            self.assertCountEqual(successful_ids, expected_ids)
+            self.assertCountEqual(history_ids, expected_ids)
 
 
 if __name__ == "__main__":

@@ -1,33 +1,33 @@
 {
   "schema_version": "1.0",
-  "run_id": "ace10f5c-9503-4987-825a-adb33b8c32d3",
-  "timestamp_utc": "2026-11-11T23:51:23.056656Z",
+  "run_id": "5d535edd-096a-4227-a9b9-8e9327f143d7",
+  "timestamp_utc": "2026-11-12T00:06:40.889983Z",
   "model_id": "local_assets/models/Qwen3.5-0.8B-Q4_K_M.gguf",
   "prompt": "In one sentence, what does a local language model do?",
   "response": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its internal knowledge base and training data to perform tasks like translation, summarization, or logical reasoning.",
   "prompt_tokens": 24,
   "output_tokens": 40,
-  "latency_seconds": 1.9158844000194222,
-  "generation_tokens_per_second": 23.155844772716478,
+  "latency_seconds": 1.5066202000016347,
+  "generation_tokens_per_second": 27.346639693998114,
   "status": "success",
   "server_usage": {
     "completion_tokens": 40,
     "prompt_tokens": 24,
     "total_tokens": 64,
     "prompt_tokens_details": {
-      "cached_tokens": 0
+      "cached_tokens": 20
     }
   },
   "server_timings": {
-    "cache_n": 0,
-    "prompt_n": 24,
-    "prompt_ms": 225.666,
-    "prompt_per_token_ms": 9.40275,
-    "prompt_per_second": 106.35186514583499,
+    "cache_n": 20,
+    "prompt_n": 4,
+    "prompt_ms": 56.761,
+    "prompt_per_token_ms": 14.19025,
+    "prompt_per_second": 70.47092193583622,
     "predicted_n": 40,
-    "predicted_ms": 1684.24,
-    "predicted_per_token_ms": 43.185641025641026,
-    "predicted_per_second": 23.155844772716478
+    "predicted_ms": 1426.135,
+    "predicted_per_token_ms": 36.567564102564106,
+    "predicted_per_second": 27.346639693998114
   },
   "server_raw_response": {
     "choices": [
@@ -40,7 +40,7 @@
         }
       }
     ],
-    "created": 1794441083,
+    "created": 1794442000,
     "model": "local_assets/models/Qwen3.5-0.8B-Q4_K_M.gguf",
     "system_fingerprint": "b12242-3b4d6ab3f",
     "object": "chat.completion",
@@ -49,20 +49,20 @@
       "prompt_tokens": 24,
       "total_tokens": 64,
       "prompt_tokens_details": {
-        "cached_tokens": 0
+        "cached_tokens": 20
       }
     },
-    "id": "chatcmpl-ZdXnCPB7horSrTEDBAyl8wSeKw462t9D",
+    "id": "chatcmpl-i9dKfBw9Z2XIRqBsApkaASmhqZRc1bgU",
     "timings": {
-      "cache_n": 0,
-      "prompt_n": 24,
-      "prompt_ms": 225.666,
-      "prompt_per_token_ms": 9.40275,
-      "prompt_per_second": 106.35186514583499,
+      "cache_n": 20,
+      "prompt_n": 4,
+      "prompt_ms": 56.761,
+      "prompt_per_token_ms": 14.19025,
+      "prompt_per_second": 70.47092193583622,
       "predicted_n": 40,
-      "predicted_ms": 1684.24,
-      "predicted_per_token_ms": 43.185641025641026,
-      "predicted_per_second": 23.155844772716478
+      "predicted_ms": 1426.135,
+      "predicted_per_token_ms": 36.567564102564106,
+      "predicted_per_second": 27.346639693998114
     }
   }
 }
