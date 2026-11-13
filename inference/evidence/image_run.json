@@ -1,0 +1,169 @@
+{
+  "schema_version": "1.0",
+  "run_id": "b61027aa-43c3-48f5-8cfe-0faf1c980a68",
+  "timestamp_utc": "2026-11-13T23:23:04.164653Z",
+  "model_id": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+  "prompt": "What two colored shapes are shown, and where is each one?",
+  "response": "Based on the image provided, here are the two colored shapes and their locations:\n\n1.  **Red Square**: This shape is located on the **left side** of the image. It is a solid red square positioned horizontally.\n2.  **Blue Circle**: This shape is located on the **right side** of the image. It is a solid blue circle positioned vertically.\n\n**Answer:**\n- **Red Square** (Left)\n- **Blue Circle** (Right)",
+  "prompt_tokens": 91,
+  "output_tokens": 101,
+  "latency_seconds": 2.8250234000151977,
+  "generation_tokens_per_second": 60.19128791298748,
+  "status": "success",
+  "input_modality": "image+text",
+  "image_file": "sample_image.png",
+  "image_sha256": "639cb4f9cc17d4cedc1c68101f00124d4cdd4b1bfa8b981e1054edad711a8830",
+  "server_usage": {
+    "completion_tokens": 101,
+    "prompt_tokens": 91,
+    "total_tokens": 192,
+    "prompt_tokens_details": {
+      "cached_tokens": 87
+    }
+  },
+  "server_timings": {
+    "cache_n": 87,
+    "prompt_n": 4,
+    "prompt_ms": 575.904,
+    "prompt_per_token_ms": 143.976,
+    "prompt_per_second": 6.945602044785242,
+    "predicted_n": 101,
+    "predicted_ms": 1661.37,
+    "predicted_per_token_ms": 16.613699999999998,
+    "predicted_per_second": 60.19128791298748
+  },
+  "server_raw_response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Based on the image provided, here are the two colored shapes and their locations:\n\n1.  **Red Square**: This shape is located on the **left side** of the image. It is a solid red square positioned horizontally.\n2.  **Blue Circle**: This shape is located on the **right side** of the image. It is a solid blue circle positioned vertically.\n\n**Answer:**\n- **Red Square** (Left)\n- **Blue Circle** (Right)"
+        }
+      }
+    ],
+    "created": 1794612184,
+    "model": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+    "system_fingerprint": "b12242-3b4d6ab3f",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 101,
+      "prompt_tokens": 91,
+      "total_tokens": 192,
+      "prompt_tokens_details": {
+        "cached_tokens": 87
+      }
+    },
+    "id": "chatcmpl-xqq1jknhsYvlncqJwhkE6UgDuvz23S3r",
+    "__verbose": {
+      "index": 0,
+      "content": "Based on the image provided, here are the two colored shapes and their locations:\n\n1.  **Red Square**: This shape is located on the **left side** of the image. It is a solid red square positioned horizontally.\n2.  **Blue Circle**: This shape is located on the **right side** of the image. It is a solid blue circle positioned vertically.\n\n**Answer:**\n- **Red Square** (Left)\n- **Blue Circle** (Right)",
+      "tokens": [],
+      "id_slot": 0,
+      "stop": true,
+      "model": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+      "tokens_predicted": 101,
+      "tokens_evaluated": 91,
+      "generation_settings": {
+        "seed": 4294967295,
+        "temperature": 0.0,
+        "dynatemp_range": 0.0,
+        "dynatemp_exponent": 1.0,
+        "top_k": 40,
+        "top_p": 0.949999988079071,
+        "min_p": 0.05000000074505806,
+        "top_n_sigma": -1.0,
+        "xtc_probability": 0.0,
+        "xtc_threshold": 0.10000000149011612,
+        "typical_p": 1.0,
+        "repeat_last_n": 64,
+        "repeat_penalty": 1.0,
+        "presence_penalty": 0.0,
+        "frequency_penalty": 0.0,
+        "dry_multiplier": 0.0,
+        "dry_base": 1.75,
+        "dry_allowed_length": 2,
+        "dry_penalty_last_n": 64,
+        "dry_sequence_breakers": [
+          "\n",
+          ":",
+          "\"",
+          "*"
+        ],
+        "mirostat": 0,
+        "mirostat_tau": 5.0,
+        "mirostat_eta": 0.10000000149011612,
+        "adaptive_target": -1.0,
+        "adaptive_decay": 0.8999999761581421,
+        "stop": [],
+        "max_tokens": 128,
+        "n_predict": 128,
+        "n_keep": 0,
+        "n_discard": 0,
+        "ignore_eos": false,
+        "stream": false,
+        "logit_bias": [],
+        "n_probs": 0,
+        "min_keep": 0,
+        "grammar": "",
+        "grammar_lazy": false,
+        "grammar_triggers": [],
+        "preserved_tokens": [
+          248058,
+          248059,
+          248068,
+          248069
+        ],
+        "chat_format": "peg-native",
+        "reasoning_format": "deepseek",
+        "reasoning_in_content": false,
+        "generation_prompt": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "samplers": [
+          "penalties",
+          "dry",
+          "top_n_sigma",
+          "top_k",
+          "typ_p",
+          "top_p",
+          "min_p",
+          "xtc",
+          "temperature"
+        ],
+        "speculative.types": "none",
+        "timings_per_token": false,
+        "post_sampling_probs": false,
+        "backend_sampling": false,
+        "lora": []
+      },
+      "prompt": "<|im_start|>user\nWhat two colored shapes are shown, and where is each one?<|vision_start|><|vision_end|><|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+      "has_new_line": true,
+      "truncated": false,
+      "stop_type": "eos",
+      "stopping_word": "",
+      "tokens_cached": 191,
+      "timings": {
+        "cache_n": 87,
+        "prompt_n": 4,
+        "prompt_ms": 575.904,
+        "prompt_per_token_ms": 143.976,
+        "prompt_per_second": 6.945602044785242,
+        "predicted_n": 101,
+        "predicted_ms": 1661.37,
+        "predicted_per_token_ms": 16.613699999999998,
+        "predicted_per_second": 60.19128791298748
+      }
+    },
+    "timings": {
+      "cache_n": 87,
+      "prompt_n": 4,
+      "prompt_ms": 575.904,
+      "prompt_per_token_ms": 143.976,
+      "prompt_per_second": 6.945602044785242,
+      "predicted_n": 101,
+      "predicted_ms": 1661.37,
+      "predicted_per_token_ms": 16.613699999999998,
+      "predicted_per_second": 60.19128791298748
+    }
+  }
+}

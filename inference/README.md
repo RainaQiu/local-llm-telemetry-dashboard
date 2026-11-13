@@ -131,4 +131,46 @@ Successful records are written to `inference/runs/latest.json` and appended to `
 
 ## Scope and Limitations
 
-This is the CPU-only local inference baseline. A GPU comparison would require a separate Vulkan runtime and explicit offload validation. Image input would require a compatible `mmproj` file and API/UI support. Neither optional artifact or feature is downloaded or included here. Training, a resource dashboard, and an agent workflow are also out of scope. The 0.8B model can produce inaccurate answers; treat output as a demo and verify factual claims independently. The exact tested prompts and real outputs are in [`evidence/environment.md`](evidence/environment.md) and [`evidence/demo_run.json`](evidence/demo_run.json).
+The default app remains a CPU-only, text-only local inference demo. The optional GPU and image experiments below were run separately and are documented with actual evidence. Model weights, the projector, and llama.cpp runtimes stay in the Git-ignored local_assets directory. Training, a resource dashboard, and an agent workflow are out of scope. The 0.8B model can produce inaccurate answers; verify factual claims independently. The exact tested CPU prompts and outputs are in [evidence/environment.md](evidence/environment.md) and [evidence/demo_run.json](evidence/demo_run.json).
+
+## Optional GPU and Image Experiments
+
+These experiments are optional and do not change the normal app request or record schema. They were run on Windows using the same Qwen3.5-0.8B Q4_K_M model and llama.cpp b12242 release as the CPU baseline. Detailed run IDs, timings, artifact hashes, and limitations are in [evidence/task6-hardware.md](evidence/task6-hardware.md). The synthetic image request and raw server response are in [evidence/image_run.json](evidence/image_run.json) and [evidence/image_run_raw.json](evidence/image_run_raw.json).
+
+### Optional artifacts
+
+The Vulkan runtime and image projector are not tracked by Git. Download only these two files from the pinned sources; the model repository revision is 1870603ac8ab59c7ddb9d94cccf3b297e379538f.
+
+| Artifact | Size | SHA-256 | Source |
+| --- | ---: | --- | --- |
+| llama-b12242-bin-win-vulkan-x64.zip | 37,891,857 bytes | dd22ce13006727691186aa755559a8bd7c8491dc4e8b3a91a316b6e37ef96192 | [llama.cpp b12242 release](https://github.com/ggml-org/llama.cpp/releases/tag/b12242) |
+| Qwen3.5-0.8B-mmproj-F16.gguf | 207,346,400 bytes | c85d84e89a6b1f9a006d02e7fa86282bd4a1dc1812cde949a5cc7031c68776bf | [Pinned Hugging Face repository revision](https://huggingface.co/notschmee/Qwen3.5-0.8B-GGUF/tree/1870603ac8ab59c7ddb9d94cccf3b297e379538f) |
+
+From the repository root, download and verify the optional files in local_assets:
+
+~~~powershell
+New-Item -ItemType Directory -Force local_assets\runtime-vulkan, local_assets\models | Out-Null
+Invoke-WebRequest -Uri "https://github.com/ggml-org/llama.cpp/releases/download/b12242/llama-b12242-bin-win-vulkan-x64.zip" -OutFile "local_assets\runtime-vulkan\llama-b12242-bin-win-vulkan-x64.zip"
+Invoke-WebRequest -Uri "https://huggingface.co/notschmee/Qwen3.5-0.8B-GGUF/resolve/1870603ac8ab59c7ddb9d94cccf3b297e379538f/Qwen3.5-0.8B-mmproj-F16.gguf?download=true" -OutFile "local_assets\models\Qwen3.5-0.8B-mmproj-F16.gguf"
+
+if ((Get-FileHash "local_assets\runtime-vulkan\llama-b12242-bin-win-vulkan-x64.zip" -Algorithm SHA256).Hash -ne "dd22ce13006727691186aa755559a8bd7c8491dc4e8b3a91a316b6e37ef96192") { throw "Vulkan runtime SHA-256 mismatch" }
+if ((Get-FileHash "local_assets\models\Qwen3.5-0.8B-mmproj-F16.gguf" -Algorithm SHA256).Hash -ne "c85d84e89a6b1f9a006d02e7fa86282bd4a1dc1812cde949a5cc7031c68776bf") { throw "mmproj SHA-256 mismatch" }
+
+Expand-Archive -Path "local_assets\runtime-vulkan\llama-b12242-bin-win-vulkan-x64.zip" -DestinationPath "local_assets\runtime-vulkan\vulkan-b12242"
+& ".\local_assets\runtime-vulkan\vulkan-b12242\llama-cli.exe" --list-devices
+~~~
+
+Start the text-only Vulkan comparison server on loopback:
+
+~~~powershell
+$env:LLAMA_ARG_CORS_ORIGINS = "localhost"
+& .\local_assets\runtime-vulkan\vulkan-b12242\llama-server.exe -m .\local_assets\models\Qwen3.5-0.8B-Q4_K_M.gguf --host 127.0.0.1 --port 8081 --ctx-size 2048 --n-gpu-layers 99 --reasoning off
+~~~
+
+For image input, stop the text-only Vulkan server and restart it with the projector:
+
+~~~powershell
+& .\local_assets\runtime-vulkan\vulkan-b12242\llama-server.exe -m .\local_assets\models\Qwen3.5-0.8B-Q4_K_M.gguf --mmproj .\local_assets\models\Qwen3.5-0.8B-mmproj-F16.gguf --host 127.0.0.1 --port 8081 --ctx-size 2048 --n-gpu-layers 99 --reasoning off
+~~~
+
+The public page currently accepts text prompts only; the verified image demonstration uses llama-server's OpenAI-compatible POST /v1/chat/completions API directly with a data URL. No upload control or app JSON field was added. Image requests should use a non-private image and be recorded with input_modality "image+text" in experiment evidence.
