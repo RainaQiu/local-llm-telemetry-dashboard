@@ -1,6 +1,6 @@
 # Task 6: Optional GPU and Image Inference
 
-This evidence covers the optional GPU and image experiments after Tasks 1–5. It records actual local llama-server responses; mock tests are not used as model execution evidence. The run timestamps are preserved in the JSON records and were produced on 2026-11-13 UTC.
+This evidence covers the optional GPU and image experiments after Tasks 1–5. It records actual local llama-server responses; mock tests are not used as model execution evidence. The first session ran on 2026-11-13 UTC and the repeat session on 2026-11-14 UTC; exact timestamps are preserved in the JSON records.
 
 ## Environment and artifacts
 
@@ -30,6 +30,28 @@ Both servers used the same prompt, model, context size 2048, max_tokens=128, tem
 | Vulkan | 2ebedf40-5805-4b9c-a926-05d56e46e1b3 | 24 / 38 | 57.9119 | 1.5431 s |
 
 The first Vulkan request had substantially higher end-to-end latency than the CPU request; the second was slightly lower. Server generation TPS and client end-to-end latency are different measurements. Two alternating requests are useful as a smoke comparison, not a general performance claim or a stable benchmark. Vulkan generation TPS was higher in these two observed requests, but this small sample does not establish consistent speedup.
+
+## Repeat comparison after the user kept the computer on
+
+A second set was run on 2026-11-14 after the user asked for a repeat with the computer left on. Both servers were restarted from the D-drive project, then health-checked at 127.0.0.1:8080 and 127.0.0.1:8081. The same model, prompt, context, output cap, temperature, non-streaming mode, and reasoning setting were used. Requests alternated CPU, Vulkan, CPU, Vulkan. All four returned successful non-empty completions. The complete normalized records and each upstream raw response from both sessions are retained in [task6_comparison_runs.json](task6_comparison_runs.json). The OS power state itself was not instrumented.
+
+| Backend | Run ID | Prompt/output tokens | Server generation TPS | Client end-to-end latency |
+| --- | --- | ---: | ---: | ---: |
+| CPU | 37e9538b-fb73-4a0a-8fa4-deb0bced5ce5 | 24 / 40 | 54.0728 | 0.8339 s |
+| Vulkan | 3f4af808-5c56-4cbf-848f-31f3b7554c7a | 24 / 38 | 63.2779 | 0.8984 s |
+| CPU | 4e1b1e3d-02f2-41d6-9a89-47c4c38c87cc | 24 / 40 | 54.3996 | 0.7651 s |
+| Vulkan | 6c7f5739-ea38-4b4b-8547-d2cfc8e0b497 | 24 / 38 | 62.7408 | 0.9871 s |
+
+### Session means and observed ranges
+
+| Session | Backend | Mean generation TPS (range) | Mean client latency (range) |
+| --- | --- | ---: | ---: |
+| First (2026-11-13) | CPU | 26.7391 (26.3525–27.1257) | 1.6170 s (1.5720–1.6621) |
+| First (2026-11-13) | Vulkan | 47.2758 (36.6397–57.9119) | 7.3952 s (1.5431–13.2472) |
+| Repeat (2026-11-14) | CPU | 54.2362 (54.0728–54.3996) | 0.7995 s (0.7651–0.8339) |
+| Repeat (2026-11-14) | Vulkan | 63.0094 (62.7408–63.2779) | 0.9427 s (0.8984–0.9871) |
+
+The repeat session recorded higher generation TPS and lower end-to-end latency for both backends than the first session. The original Vulkan set includes a 13.2472 s first request; the repeat set ranged from 0.8984–0.9871 s. This supports the user's concern that the first measurements were atypical, but it does not identify the cause: only two requests per backend per session were measured, and no power-state or system-load telemetry was captured. Treat this as a reproducibility check, not a benchmark claim.
 
 ## Image API run
 

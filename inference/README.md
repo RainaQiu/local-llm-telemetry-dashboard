@@ -135,7 +135,7 @@ The default app remains a CPU-only, text-only local inference demo. The optional
 
 ## Optional GPU and Image Experiments
 
-These experiments are optional and do not change the normal app request or record schema. They were run on Windows using the same Qwen3.5-0.8B Q4_K_M model and llama.cpp b12242 release as the CPU baseline. Detailed run IDs, timings, artifact hashes, and limitations are in [evidence/task6-hardware.md](evidence/task6-hardware.md). The synthetic image request and raw server response are in [evidence/image_run.json](evidence/image_run.json) and [evidence/image_run_raw.json](evidence/image_run_raw.json).
+These experiments are optional and do not change the normal app request or record schema. They were run on Windows using the same Qwen3.5-0.8B Q4_K_M model and llama.cpp b12242 release as the CPU baseline. Detailed run IDs, timings, artifact hashes, and limitations are in [evidence/task6-hardware.md](evidence/task6-hardware.md). The synthetic image request and raw server response are in [evidence/image_run.json](evidence/image_run.json) and [evidence/image_run_raw.json](evidence/image_run_raw.json). The first and repeat CPU/Vulkan text runs, including raw server responses, are in [evidence/task6_comparison_runs.json](evidence/task6_comparison_runs.json).
 
 ### Optional artifacts
 

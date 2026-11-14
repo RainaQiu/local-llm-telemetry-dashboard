@@ -1,0 +1,1002 @@
+{
+  "evidence_schema_version": "1.0",
+  "purpose": "Task 6 text-only CPU versus Vulkan comparison; this is experiment evidence, not the app record schema.",
+  "prompt": "In one sentence, what does a local language model do?",
+  "settings": {
+    "context_size": 2048,
+    "max_tokens": 128,
+    "temperature": 0,
+    "stream": false,
+    "reasoning": "off",
+    "cpu_n_gpu_layers": 0,
+    "vulkan_n_gpu_layers": 99,
+    "runtime_release": "llama.cpp b12242",
+    "model": "Qwen3.5-0.8B-Q4_K_M.gguf"
+  },
+  "sessions": [
+    {
+      "label": "first session",
+      "started_at_utc": "2026-11-13T23:18:03.352123Z",
+      "ended_at_utc": "2026-11-13T23:18:19.826236Z",
+      "note": "Original Task 6 comparison from 2026-11-13.",
+      "runs": [
+        {
+          "sequence": 1,
+          "backend": "cpu",
+          "record": {
+            "schema_version": "1.0",
+            "run_id": "3098b44b-7a32-48e6-8054-0dd49dc80362",
+            "timestamp_utc": "2026-11-13T23:18:03.352123Z",
+            "model_id": "local_assets/models/Qwen3.5-0.8B-Q4_K_M.gguf",
+            "prompt": "In one sentence, what does a local language model do?",
+            "response": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its internal knowledge base and training data to perform tasks like translation, summarization, or logical reasoning.",
+            "prompt_tokens": 24,
+            "output_tokens": 40,
+            "latency_seconds": 1.5719582000165246,
+            "generation_tokens_per_second": 27.125679533048817,
+            "status": "success",
+            "server_usage": {
+              "completion_tokens": 40,
+              "prompt_tokens": 24,
+              "total_tokens": 64,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              }
+            },
+            "server_timings": {
+              "cache_n": 0,
+              "prompt_n": 24,
+              "prompt_ms": 123.89,
+              "prompt_per_token_ms": 5.162083333333333,
+              "prompt_per_second": 193.72023569295342,
+              "predicted_n": 40,
+              "predicted_ms": 1437.752,
+              "predicted_per_token_ms": 36.865435897435894,
+              "predicted_per_second": 27.125679533048817
+            },
+            "server_raw_response": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "index": 0,
+                  "message": {
+                    "role": "assistant",
+                    "content": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its internal knowledge base and training data to perform tasks like translation, summarization, or logical reasoning."
+                  }
+                }
+              ],
+              "created": 1794611883,
+              "model": "local_assets/models/Qwen3.5-0.8B-Q4_K_M.gguf",
+              "system_fingerprint": "b12242-3b4d6ab3f",
+              "object": "chat.completion",
+              "usage": {
+                "completion_tokens": 40,
+                "prompt_tokens": 24,
+                "total_tokens": 64,
+                "prompt_tokens_details": {
+                  "cached_tokens": 0
+                }
+              },
+              "id": "chatcmpl-kJNqIUQeJxwizOETFmbR4Tw9j7EWNCfu",
+              "timings": {
+                "cache_n": 0,
+                "prompt_n": 24,
+                "prompt_ms": 123.89,
+                "prompt_per_token_ms": 5.162083333333333,
+                "prompt_per_second": 193.72023569295342,
+                "predicted_n": 40,
+                "predicted_ms": 1437.752,
+                "predicted_per_token_ms": 36.865435897435894,
+                "predicted_per_second": 27.125679533048817
+              }
+            }
+          }
+        },
+        {
+          "sequence": 2,
+          "backend": "vulkan",
+          "record": {
+            "schema_version": "1.0",
+            "run_id": "50becbf7-454a-4802-bf54-e4b2fa7b970b",
+            "timestamp_utc": "2026-11-13T23:18:16.601841Z",
+            "model_id": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+            "prompt": "In one sentence, what does a local language model do?",
+            "response": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its own training data and internal architecture to perform tasks like translation, generation, or classification.",
+            "prompt_tokens": 24,
+            "output_tokens": 38,
+            "latency_seconds": 13.247235699993325,
+            "generation_tokens_per_second": 36.639721617336726,
+            "status": "success",
+            "server_usage": {
+              "completion_tokens": 38,
+              "prompt_tokens": 24,
+              "total_tokens": 62,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              }
+            },
+            "server_timings": {
+              "cache_n": 0,
+              "prompt_n": 24,
+              "prompt_ms": 12209.995,
+              "prompt_per_token_ms": 508.7497916666667,
+              "prompt_per_second": 1.965602770517105,
+              "predicted_n": 38,
+              "predicted_ms": 1009.833,
+              "predicted_per_token_ms": 27.292783783783783,
+              "predicted_per_second": 36.639721617336726
+            },
+            "server_raw_response": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "index": 0,
+                  "message": {
+                    "role": "assistant",
+                    "content": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its own training data and internal architecture to perform tasks like translation, generation, or classification."
+                  }
+                }
+              ],
+              "created": 1794611896,
+              "model": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+              "system_fingerprint": "b12242-3b4d6ab3f",
+              "object": "chat.completion",
+              "usage": {
+                "completion_tokens": 38,
+                "prompt_tokens": 24,
+                "total_tokens": 62,
+                "prompt_tokens_details": {
+                  "cached_tokens": 0
+                }
+              },
+              "id": "chatcmpl-BeHwMZlLbIhAMTD57t4n8jomxc1CdWG4",
+              "timings": {
+                "cache_n": 0,
+                "prompt_n": 24,
+                "prompt_ms": 12209.995,
+                "prompt_per_token_ms": 508.7497916666667,
+                "prompt_per_second": 1.965602770517105,
+                "predicted_n": 38,
+                "predicted_ms": 1009.833,
+                "predicted_per_token_ms": 27.292783783783783,
+                "predicted_per_second": 36.639721617336726
+              }
+            }
+          }
+        },
+        {
+          "sequence": 3,
+          "backend": "cpu",
+          "record": {
+            "schema_version": "1.0",
+            "run_id": "d1fbc391-8761-4f03-992c-f61608c9196c",
+            "timestamp_utc": "2026-11-13T23:18:18.280071Z",
+            "model_id": "local_assets/models/Qwen3.5-0.8B-Q4_K_M.gguf",
+            "prompt": "In one sentence, what does a local language model do?",
+            "response": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its internal knowledge base and training data to perform tasks like translation, summarization, or logical reasoning.",
+            "prompt_tokens": 24,
+            "output_tokens": 40,
+            "latency_seconds": 1.6620640000037383,
+            "generation_tokens_per_second": 26.352455305560095,
+            "status": "success",
+            "server_usage": {
+              "completion_tokens": 40,
+              "prompt_tokens": 24,
+              "total_tokens": 64,
+              "prompt_tokens_details": {
+                "cached_tokens": 20
+              }
+            },
+            "server_timings": {
+              "cache_n": 20,
+              "prompt_n": 4,
+              "prompt_ms": 152.583,
+              "prompt_per_token_ms": 38.14575,
+              "prompt_per_second": 26.215240229907657,
+              "predicted_n": 40,
+              "predicted_ms": 1479.938,
+              "predicted_per_token_ms": 37.94712820512821,
+              "predicted_per_second": 26.352455305560095
+            },
+            "server_raw_response": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "index": 0,
+                  "message": {
+                    "role": "assistant",
+                    "content": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its internal knowledge base and training data to perform tasks like translation, summarization, or logical reasoning."
+                  }
+                }
+              ],
+              "created": 1794611898,
+              "model": "local_assets/models/Qwen3.5-0.8B-Q4_K_M.gguf",
+              "system_fingerprint": "b12242-3b4d6ab3f",
+              "object": "chat.completion",
+              "usage": {
+                "completion_tokens": 40,
+                "prompt_tokens": 24,
+                "total_tokens": 64,
+                "prompt_tokens_details": {
+                  "cached_tokens": 20
+                }
+              },
+              "id": "chatcmpl-qtgAGT7TXWLkNfNl8hCNj7iZYNBM2mzo",
+              "timings": {
+                "cache_n": 20,
+                "prompt_n": 4,
+                "prompt_ms": 152.583,
+                "prompt_per_token_ms": 38.14575,
+                "prompt_per_second": 26.215240229907657,
+                "predicted_n": 40,
+                "predicted_ms": 1479.938,
+                "predicted_per_token_ms": 37.94712820512821,
+                "predicted_per_second": 26.352455305560095
+              }
+            }
+          }
+        },
+        {
+          "sequence": 4,
+          "backend": "vulkan",
+          "record": {
+            "schema_version": "1.0",
+            "run_id": "2ebedf40-5805-4b9c-a926-05d56e46e1b3",
+            "timestamp_utc": "2026-11-13T23:18:19.826236Z",
+            "model_id": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+            "prompt": "In one sentence, what does a local language model do?",
+            "response": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its own training data and internal architecture to perform tasks like translation, generation, or classification.",
+            "prompt_tokens": 24,
+            "output_tokens": 38,
+            "latency_seconds": 1.5430958999786526,
+            "generation_tokens_per_second": 57.911855026279454,
+            "status": "success",
+            "server_usage": {
+              "completion_tokens": 38,
+              "prompt_tokens": 24,
+              "total_tokens": 62,
+              "prompt_tokens_details": {
+                "cached_tokens": 20
+              }
+            },
+            "server_timings": {
+              "cache_n": 20,
+              "prompt_n": 4,
+              "prompt_ms": 450.519,
+              "prompt_per_token_ms": 112.62975,
+              "prompt_per_second": 8.87864884721843,
+              "predicted_n": 38,
+              "predicted_ms": 638.902,
+              "predicted_per_token_ms": 17.267621621621622,
+              "predicted_per_second": 57.911855026279454
+            },
+            "server_raw_response": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "index": 0,
+                  "message": {
+                    "role": "assistant",
+                    "content": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its own training data and internal architecture to perform tasks like translation, generation, or classification."
+                  }
+                }
+              ],
+              "created": 1794611899,
+              "model": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+              "system_fingerprint": "b12242-3b4d6ab3f",
+              "object": "chat.completion",
+              "usage": {
+                "completion_tokens": 38,
+                "prompt_tokens": 24,
+                "total_tokens": 62,
+                "prompt_tokens_details": {
+                  "cached_tokens": 20
+                }
+              },
+              "id": "chatcmpl-UFZoXNNSVX3PShBWSM3dALVO3IY6yqon",
+              "timings": {
+                "cache_n": 20,
+                "prompt_n": 4,
+                "prompt_ms": 450.519,
+                "prompt_per_token_ms": 112.62975,
+                "prompt_per_second": 8.87864884721843,
+                "predicted_n": 38,
+                "predicted_ms": 638.902,
+                "predicted_per_token_ms": 17.267621621621622,
+                "predicted_per_second": 57.911855026279454
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "label": "repeat session",
+      "started_at_utc": "2026-11-14T15:18:28.336345Z",
+      "ended_at_utc": "2026-11-14T15:18:31.012114Z",
+      "note": "CPU and Vulkan servers were started fresh after the user asked to keep the computer on. All four requests completed sequentially in one client process. OS power-state telemetry was not collected.",
+      "runs": [
+        {
+          "sequence": 1,
+          "backend": "cpu",
+          "record": {
+            "schema_version": "1.0",
+            "run_id": "37e9538b-fb73-4a0a-8fa4-deb0bced5ce5",
+            "timestamp_utc": "2026-11-14T15:18:28.336345Z",
+            "model_id": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+            "prompt": "In one sentence, what does a local language model do?",
+            "response": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its internal knowledge base and training data to perform tasks like translation, summarization, or logical reasoning.",
+            "prompt_tokens": 24,
+            "output_tokens": 40,
+            "latency_seconds": 0.8338513000053354,
+            "generation_tokens_per_second": 54.07279029462739,
+            "status": "success",
+            "server_usage": {
+              "completion_tokens": 40,
+              "prompt_tokens": 24,
+              "total_tokens": 64,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              }
+            },
+            "server_timings": {
+              "cache_n": 0,
+              "prompt_n": 24,
+              "prompt_ms": 82.634,
+              "prompt_per_token_ms": 3.4430833333333335,
+              "prompt_per_second": 290.43735024324127,
+              "predicted_n": 40,
+              "predicted_ms": 721.25,
+              "predicted_per_token_ms": 18.493589743589745,
+              "predicted_per_second": 54.07279029462739
+            },
+            "server_raw_response": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "index": 0,
+                  "message": {
+                    "role": "assistant",
+                    "content": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its internal knowledge base and training data to perform tasks like translation, summarization, or logical reasoning."
+                  }
+                }
+              ],
+              "created": 1794669508,
+              "model": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+              "system_fingerprint": "b12242-3b4d6ab3f",
+              "object": "chat.completion",
+              "usage": {
+                "completion_tokens": 40,
+                "prompt_tokens": 24,
+                "total_tokens": 64,
+                "prompt_tokens_details": {
+                  "cached_tokens": 0
+                }
+              },
+              "id": "chatcmpl-oJdidFR50XREcxp2RyaPjKYCbBeeuKW6",
+              "__verbose": {
+                "index": 0,
+                "content": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its internal knowledge base and training data to perform tasks like translation, summarization, or logical reasoning.",
+                "tokens": [],
+                "id_slot": 0,
+                "stop": true,
+                "model": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+                "tokens_predicted": 40,
+                "tokens_evaluated": 24,
+                "generation_settings": {
+                  "seed": 4294967295,
+                  "temperature": 0.0,
+                  "dynatemp_range": 0.0,
+                  "dynatemp_exponent": 1.0,
+                  "top_k": 40,
+                  "top_p": 0.949999988079071,
+                  "min_p": 0.05000000074505806,
+                  "top_n_sigma": -1.0,
+                  "xtc_probability": 0.0,
+                  "xtc_threshold": 0.10000000149011612,
+                  "typical_p": 1.0,
+                  "repeat_last_n": 64,
+                  "repeat_penalty": 1.0,
+                  "presence_penalty": 0.0,
+                  "frequency_penalty": 0.0,
+                  "dry_multiplier": 0.0,
+                  "dry_base": 1.75,
+                  "dry_allowed_length": 2,
+                  "dry_penalty_last_n": 64,
+                  "dry_sequence_breakers": [
+                    "\n",
+                    ":",
+                    "\"",
+                    "*"
+                  ],
+                  "mirostat": 0,
+                  "mirostat_tau": 5.0,
+                  "mirostat_eta": 0.10000000149011612,
+                  "adaptive_target": -1.0,
+                  "adaptive_decay": 0.8999999761581421,
+                  "stop": [],
+                  "max_tokens": 128,
+                  "n_predict": 128,
+                  "n_keep": 0,
+                  "n_discard": 0,
+                  "ignore_eos": false,
+                  "stream": false,
+                  "logit_bias": [],
+                  "n_probs": 0,
+                  "min_keep": 0,
+                  "grammar": "",
+                  "grammar_lazy": false,
+                  "grammar_triggers": [],
+                  "preserved_tokens": [
+                    248058,
+                    248059,
+                    248068,
+                    248069
+                  ],
+                  "chat_format": "peg-native",
+                  "reasoning_format": "deepseek",
+                  "reasoning_in_content": false,
+                  "generation_prompt": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+                  "samplers": [
+                    "penalties",
+                    "dry",
+                    "top_n_sigma",
+                    "top_k",
+                    "typ_p",
+                    "top_p",
+                    "min_p",
+                    "xtc",
+                    "temperature"
+                  ],
+                  "speculative.types": "none",
+                  "timings_per_token": false,
+                  "post_sampling_probs": false,
+                  "backend_sampling": false,
+                  "lora": []
+                },
+                "prompt": "<|im_start|>user\nIn one sentence, what does a local language model do?<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+                "has_new_line": false,
+                "truncated": false,
+                "stop_type": "eos",
+                "stopping_word": "",
+                "tokens_cached": 63,
+                "timings": {
+                  "cache_n": 0,
+                  "prompt_n": 24,
+                  "prompt_ms": 82.634,
+                  "prompt_per_token_ms": 3.4430833333333335,
+                  "prompt_per_second": 290.43735024324127,
+                  "predicted_n": 40,
+                  "predicted_ms": 721.25,
+                  "predicted_per_token_ms": 18.493589743589745,
+                  "predicted_per_second": 54.07279029462739
+                }
+              },
+              "timings": {
+                "cache_n": 0,
+                "prompt_n": 24,
+                "prompt_ms": 82.634,
+                "prompt_per_token_ms": 3.4430833333333335,
+                "prompt_per_second": 290.43735024324127,
+                "predicted_n": 40,
+                "predicted_ms": 721.25,
+                "predicted_per_token_ms": 18.493589743589745,
+                "predicted_per_second": 54.07279029462739
+              }
+            }
+          }
+        },
+        {
+          "sequence": 2,
+          "backend": "vulkan",
+          "record": {
+            "schema_version": "1.0",
+            "run_id": "3f4af808-5c56-4cbf-848f-31f3b7554c7a",
+            "timestamp_utc": "2026-11-14T15:18:29.239500Z",
+            "model_id": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+            "prompt": "In one sentence, what does a local language model do?",
+            "response": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its own training data and internal architecture to perform tasks like translation, generation, or classification.",
+            "prompt_tokens": 24,
+            "output_tokens": 38,
+            "latency_seconds": 0.8983705999853555,
+            "generation_tokens_per_second": 63.277933787338256,
+            "status": "success",
+            "server_usage": {
+              "completion_tokens": 38,
+              "prompt_tokens": 24,
+              "total_tokens": 62,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              }
+            },
+            "server_timings": {
+              "cache_n": 0,
+              "prompt_n": 24,
+              "prompt_ms": 289.178,
+              "prompt_per_token_ms": 12.049083333333334,
+              "prompt_per_second": 82.99386537011806,
+              "predicted_n": 38,
+              "predicted_ms": 584.722,
+              "predicted_per_token_ms": 15.803297297297297,
+              "predicted_per_second": 63.277933787338256
+            },
+            "server_raw_response": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "index": 0,
+                  "message": {
+                    "role": "assistant",
+                    "content": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its own training data and internal architecture to perform tasks like translation, generation, or classification."
+                  }
+                }
+              ],
+              "created": 1794669509,
+              "model": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+              "system_fingerprint": "b12242-3b4d6ab3f",
+              "object": "chat.completion",
+              "usage": {
+                "completion_tokens": 38,
+                "prompt_tokens": 24,
+                "total_tokens": 62,
+                "prompt_tokens_details": {
+                  "cached_tokens": 0
+                }
+              },
+              "id": "chatcmpl-CpnxYODImqpCOO8qvmHyuOJsKOuujZES",
+              "__verbose": {
+                "index": 0,
+                "content": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its own training data and internal architecture to perform tasks like translation, generation, or classification.",
+                "tokens": [],
+                "id_slot": 0,
+                "stop": true,
+                "model": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+                "tokens_predicted": 38,
+                "tokens_evaluated": 24,
+                "generation_settings": {
+                  "seed": 4294967295,
+                  "temperature": 0.0,
+                  "dynatemp_range": 0.0,
+                  "dynatemp_exponent": 1.0,
+                  "top_k": 40,
+                  "top_p": 0.949999988079071,
+                  "min_p": 0.05000000074505806,
+                  "top_n_sigma": -1.0,
+                  "xtc_probability": 0.0,
+                  "xtc_threshold": 0.10000000149011612,
+                  "typical_p": 1.0,
+                  "repeat_last_n": 64,
+                  "repeat_penalty": 1.0,
+                  "presence_penalty": 0.0,
+                  "frequency_penalty": 0.0,
+                  "dry_multiplier": 0.0,
+                  "dry_base": 1.75,
+                  "dry_allowed_length": 2,
+                  "dry_penalty_last_n": 64,
+                  "dry_sequence_breakers": [
+                    "\n",
+                    ":",
+                    "\"",
+                    "*"
+                  ],
+                  "mirostat": 0,
+                  "mirostat_tau": 5.0,
+                  "mirostat_eta": 0.10000000149011612,
+                  "adaptive_target": -1.0,
+                  "adaptive_decay": 0.8999999761581421,
+                  "stop": [],
+                  "max_tokens": 128,
+                  "n_predict": 128,
+                  "n_keep": 0,
+                  "n_discard": 0,
+                  "ignore_eos": false,
+                  "stream": false,
+                  "logit_bias": [],
+                  "n_probs": 0,
+                  "min_keep": 0,
+                  "grammar": "",
+                  "grammar_lazy": false,
+                  "grammar_triggers": [],
+                  "preserved_tokens": [
+                    248058,
+                    248059,
+                    248068,
+                    248069
+                  ],
+                  "chat_format": "peg-native",
+                  "reasoning_format": "deepseek",
+                  "reasoning_in_content": false,
+                  "generation_prompt": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+                  "samplers": [
+                    "penalties",
+                    "dry",
+                    "top_n_sigma",
+                    "top_k",
+                    "typ_p",
+                    "top_p",
+                    "min_p",
+                    "xtc",
+                    "temperature"
+                  ],
+                  "speculative.types": "none",
+                  "timings_per_token": false,
+                  "post_sampling_probs": false,
+                  "backend_sampling": false,
+                  "lora": []
+                },
+                "prompt": "<|im_start|>user\nIn one sentence, what does a local language model do?<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+                "has_new_line": false,
+                "truncated": false,
+                "stop_type": "eos",
+                "stopping_word": "",
+                "tokens_cached": 61,
+                "timings": {
+                  "cache_n": 0,
+                  "prompt_n": 24,
+                  "prompt_ms": 289.178,
+                  "prompt_per_token_ms": 12.049083333333334,
+                  "prompt_per_second": 82.99386537011806,
+                  "predicted_n": 38,
+                  "predicted_ms": 584.722,
+                  "predicted_per_token_ms": 15.803297297297297,
+                  "predicted_per_second": 63.277933787338256
+                }
+              },
+              "timings": {
+                "cache_n": 0,
+                "prompt_n": 24,
+                "prompt_ms": 289.178,
+                "prompt_per_token_ms": 12.049083333333334,
+                "prompt_per_second": 82.99386537011806,
+                "predicted_n": 38,
+                "predicted_ms": 584.722,
+                "predicted_per_token_ms": 15.803297297297297,
+                "predicted_per_second": 63.277933787338256
+              }
+            }
+          }
+        },
+        {
+          "sequence": 3,
+          "backend": "cpu",
+          "record": {
+            "schema_version": "1.0",
+            "run_id": "4e1b1e3d-02f2-41d6-9a89-47c4c38c87cc",
+            "timestamp_utc": "2026-11-14T15:18:30.020186Z",
+            "model_id": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+            "prompt": "In one sentence, what does a local language model do?",
+            "response": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its internal knowledge base and training data to perform tasks like translation, summarization, or logical reasoning.",
+            "prompt_tokens": 24,
+            "output_tokens": 40,
+            "latency_seconds": 0.765062599995872,
+            "generation_tokens_per_second": 54.399602743413816,
+            "status": "success",
+            "server_usage": {
+              "completion_tokens": 40,
+              "prompt_tokens": 24,
+              "total_tokens": 64,
+              "prompt_tokens_details": {
+                "cached_tokens": 20
+              }
+            },
+            "server_timings": {
+              "cache_n": 20,
+              "prompt_n": 4,
+              "prompt_ms": 39.837,
+              "prompt_per_token_ms": 9.95925,
+              "prompt_per_second": 100.40916735697968,
+              "predicted_n": 40,
+              "predicted_ms": 716.917,
+              "predicted_per_token_ms": 18.382487179487182,
+              "predicted_per_second": 54.399602743413816
+            },
+            "server_raw_response": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "index": 0,
+                  "message": {
+                    "role": "assistant",
+                    "content": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its internal knowledge base and training data to perform tasks like translation, summarization, or logical reasoning."
+                  }
+                }
+              ],
+              "created": 1794669510,
+              "model": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+              "system_fingerprint": "b12242-3b4d6ab3f",
+              "object": "chat.completion",
+              "usage": {
+                "completion_tokens": 40,
+                "prompt_tokens": 24,
+                "total_tokens": 64,
+                "prompt_tokens_details": {
+                  "cached_tokens": 20
+                }
+              },
+              "id": "chatcmpl-QfxQD2ZUN54rO7bSDfg2sfubRRvBDoCy",
+              "__verbose": {
+                "index": 0,
+                "content": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its internal knowledge base and training data to perform tasks like translation, summarization, or logical reasoning.",
+                "tokens": [],
+                "id_slot": 0,
+                "stop": true,
+                "model": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+                "tokens_predicted": 40,
+                "tokens_evaluated": 24,
+                "generation_settings": {
+                  "seed": 4294967295,
+                  "temperature": 0.0,
+                  "dynatemp_range": 0.0,
+                  "dynatemp_exponent": 1.0,
+                  "top_k": 40,
+                  "top_p": 0.949999988079071,
+                  "min_p": 0.05000000074505806,
+                  "top_n_sigma": -1.0,
+                  "xtc_probability": 0.0,
+                  "xtc_threshold": 0.10000000149011612,
+                  "typical_p": 1.0,
+                  "repeat_last_n": 64,
+                  "repeat_penalty": 1.0,
+                  "presence_penalty": 0.0,
+                  "frequency_penalty": 0.0,
+                  "dry_multiplier": 0.0,
+                  "dry_base": 1.75,
+                  "dry_allowed_length": 2,
+                  "dry_penalty_last_n": 64,
+                  "dry_sequence_breakers": [
+                    "\n",
+                    ":",
+                    "\"",
+                    "*"
+                  ],
+                  "mirostat": 0,
+                  "mirostat_tau": 5.0,
+                  "mirostat_eta": 0.10000000149011612,
+                  "adaptive_target": -1.0,
+                  "adaptive_decay": 0.8999999761581421,
+                  "stop": [],
+                  "max_tokens": 128,
+                  "n_predict": 128,
+                  "n_keep": 0,
+                  "n_discard": 0,
+                  "ignore_eos": false,
+                  "stream": false,
+                  "logit_bias": [],
+                  "n_probs": 0,
+                  "min_keep": 0,
+                  "grammar": "",
+                  "grammar_lazy": false,
+                  "grammar_triggers": [],
+                  "preserved_tokens": [
+                    248058,
+                    248059,
+                    248068,
+                    248069
+                  ],
+                  "chat_format": "peg-native",
+                  "reasoning_format": "deepseek",
+                  "reasoning_in_content": false,
+                  "generation_prompt": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+                  "samplers": [
+                    "penalties",
+                    "dry",
+                    "top_n_sigma",
+                    "top_k",
+                    "typ_p",
+                    "top_p",
+                    "min_p",
+                    "xtc",
+                    "temperature"
+                  ],
+                  "speculative.types": "none",
+                  "timings_per_token": false,
+                  "post_sampling_probs": false,
+                  "backend_sampling": false,
+                  "lora": []
+                },
+                "prompt": "<|im_start|>user\nIn one sentence, what does a local language model do?<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+                "has_new_line": false,
+                "truncated": false,
+                "stop_type": "eos",
+                "stopping_word": "",
+                "tokens_cached": 63,
+                "timings": {
+                  "cache_n": 20,
+                  "prompt_n": 4,
+                  "prompt_ms": 39.837,
+                  "prompt_per_token_ms": 9.95925,
+                  "prompt_per_second": 100.40916735697968,
+                  "predicted_n": 40,
+                  "predicted_ms": 716.917,
+                  "predicted_per_token_ms": 18.382487179487182,
+                  "predicted_per_second": 54.399602743413816
+                }
+              },
+              "timings": {
+                "cache_n": 20,
+                "prompt_n": 4,
+                "prompt_ms": 39.837,
+                "prompt_per_token_ms": 9.95925,
+                "prompt_per_second": 100.40916735697968,
+                "predicted_n": 40,
+                "predicted_ms": 716.917,
+                "predicted_per_token_ms": 18.382487179487182,
+                "predicted_per_second": 54.399602743413816
+              }
+            }
+          }
+        },
+        {
+          "sequence": 4,
+          "backend": "vulkan",
+          "record": {
+            "schema_version": "1.0",
+            "run_id": "6c7f5739-ea38-4b4b-8547-d2cfc8e0b497",
+            "timestamp_utc": "2026-11-14T15:18:31.012114Z",
+            "model_id": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+            "prompt": "In one sentence, what does a local language model do?",
+            "response": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its own training data and internal architecture to perform tasks like translation, generation, or classification.",
+            "prompt_tokens": 24,
+            "output_tokens": 38,
+            "latency_seconds": 0.987054099998204,
+            "generation_tokens_per_second": 62.74078897389984,
+            "status": "success",
+            "server_usage": {
+              "completion_tokens": 38,
+              "prompt_tokens": 24,
+              "total_tokens": 62,
+              "prompt_tokens_details": {
+                "cached_tokens": 20
+              }
+            },
+            "server_timings": {
+              "cache_n": 20,
+              "prompt_n": 4,
+              "prompt_ms": 162.1,
+              "prompt_per_token_ms": 40.525,
+              "prompt_per_second": 24.676125848241828,
+              "predicted_n": 38,
+              "predicted_ms": 589.728,
+              "predicted_per_token_ms": 15.938594594594594,
+              "predicted_per_second": 62.74078897389984
+            },
+            "server_raw_response": {
+              "choices": [
+                {
+                  "finish_reason": "stop",
+                  "index": 0,
+                  "message": {
+                    "role": "assistant",
+                    "content": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its own training data and internal architecture to perform tasks like translation, generation, or classification."
+                  }
+                }
+              ],
+              "created": 1794669511,
+              "model": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+              "system_fingerprint": "b12242-3b4d6ab3f",
+              "object": "chat.completion",
+              "usage": {
+                "completion_tokens": 38,
+                "prompt_tokens": 24,
+                "total_tokens": 62,
+                "prompt_tokens_details": {
+                  "cached_tokens": 20
+                }
+              },
+              "id": "chatcmpl-HHoxauJPscLp5ZMnPOYmHb8EWuQ8TvEc",
+              "__verbose": {
+                "index": 0,
+                "content": "A local language model processes input data within a specific local environment to generate output, typically by leveraging its own training data and internal architecture to perform tasks like translation, generation, or classification.",
+                "tokens": [],
+                "id_slot": 0,
+                "stop": true,
+                "model": ".\\local_assets\\models\\Qwen3.5-0.8B-Q4_K_M.gguf",
+                "tokens_predicted": 38,
+                "tokens_evaluated": 24,
+                "generation_settings": {
+                  "seed": 4294967295,
+                  "temperature": 0.0,
+                  "dynatemp_range": 0.0,
+                  "dynatemp_exponent": 1.0,
+                  "top_k": 40,
+                  "top_p": 0.949999988079071,
+                  "min_p": 0.05000000074505806,
+                  "top_n_sigma": -1.0,
+                  "xtc_probability": 0.0,
+                  "xtc_threshold": 0.10000000149011612,
+                  "typical_p": 1.0,
+                  "repeat_last_n": 64,
+                  "repeat_penalty": 1.0,
+                  "presence_penalty": 0.0,
+                  "frequency_penalty": 0.0,
+                  "dry_multiplier": 0.0,
+                  "dry_base": 1.75,
+                  "dry_allowed_length": 2,
+                  "dry_penalty_last_n": 64,
+                  "dry_sequence_breakers": [
+                    "\n",
+                    ":",
+                    "\"",
+                    "*"
+                  ],
+                  "mirostat": 0,
+                  "mirostat_tau": 5.0,
+                  "mirostat_eta": 0.10000000149011612,
+                  "adaptive_target": -1.0,
+                  "adaptive_decay": 0.8999999761581421,
+                  "stop": [],
+                  "max_tokens": 128,
+                  "n_predict": 128,
+                  "n_keep": 0,
+                  "n_discard": 0,
+                  "ignore_eos": false,
+                  "stream": false,
+                  "logit_bias": [],
+                  "n_probs": 0,
+                  "min_keep": 0,
+                  "grammar": "",
+                  "grammar_lazy": false,
+                  "grammar_triggers": [],
+                  "preserved_tokens": [
+                    248058,
+                    248059,
+                    248068,
+                    248069
+                  ],
+                  "chat_format": "peg-native",
+                  "reasoning_format": "deepseek",
+                  "reasoning_in_content": false,
+                  "generation_prompt": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+                  "samplers": [
+                    "penalties",
+                    "dry",
+                    "top_n_sigma",
+                    "top_k",
+                    "typ_p",
+                    "top_p",
+                    "min_p",
+                    "xtc",
+                    "temperature"
+                  ],
+                  "speculative.types": "none",
+                  "timings_per_token": false,
+                  "post_sampling_probs": false,
+                  "backend_sampling": false,
+                  "lora": []
+                },
+                "prompt": "<|im_start|>user\nIn one sentence, what does a local language model do?<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+                "has_new_line": false,
+                "truncated": false,
+                "stop_type": "eos",
+                "stopping_word": "",
+                "tokens_cached": 61,
+                "timings": {
+                  "cache_n": 20,
+                  "prompt_n": 4,
+                  "prompt_ms": 162.1,
+                  "prompt_per_token_ms": 40.525,
+                  "prompt_per_second": 24.676125848241828,
+                  "predicted_n": 38,
+                  "predicted_ms": 589.728,
+                  "predicted_per_token_ms": 15.938594594594594,
+                  "predicted_per_second": 62.74078897389984
+                }
+              },
+              "timings": {
+                "cache_n": 20,
+                "prompt_n": 4,
+                "prompt_ms": 162.1,
+                "prompt_per_token_ms": 40.525,
+                "prompt_per_second": 24.676125848241828,
+                "predicted_n": 38,
+                "predicted_ms": 589.728,
+                "predicted_per_token_ms": 15.938594594594594,
+                "predicted_per_second": 62.74078897389984
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
