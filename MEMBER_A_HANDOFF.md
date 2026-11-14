@@ -12,19 +12,31 @@ To call it from code, send `{"prompt":"Your question here"}` to `POST http://127
 
 ## Results from my laptop
 
-These runs were on my Windows laptop with an Intel Core Ultra 7 155H, 32 GB RAM, and Intel Arc integrated graphics.
+These runs were on my Windows laptop with an Intel Core Ultra 7 155H, 32 GB RAM, and Intel Arc integrated graphics. The CPU and Vulkan tests used the same Qwen model and prompt. Each row below is one actual request, in the order it ran.
 
-| Test | Input / output tokens | Request latency | Generation speed |
-| --- | ---: | ---: | ---: |
-| First browser demo, CPU | 24 / 40 | 1.51 s | 27.35 tokens/s |
-| Repeat test, CPU | 24 / 40 | 0.80 s | 54.24 tokens/s |
-| Repeat test, Intel Arc via Vulkan | 24 / 38 | 0.94 s | 63.01 tokens/s |
+### First test (13 November)
 
-The repeat rows are averages of two requests each, using the same model and prompt. The first browser demo was on a different day, so I would not use it as a direct speed comparison. Vulkan generated tokens faster in the repeat test, but its whole request took a little longer. My Vulkan log showed all 25 model layers offloaded to Intel Arc. The [individual runs and settings](inference/evidence/task6-hardware.md) are here.
+| Order | Where it ran | Input / output tokens | Request latency | Generation speed |
+| --- | --- | ---: | ---: | ---: |
+| 1 | CPU | 24 / 40 | 1.57 s | 27.13 tokens/s |
+| 2 | Intel Arc (Vulkan) | 24 / 38 | 13.25 s | 36.64 tokens/s |
+| 3 | CPU | 24 / 40 | 1.66 s | 26.35 tokens/s |
+| 4 | Intel Arc (Vulkan) | 24 / 38 | 1.54 s | 57.91 tokens/s |
 
-I also sent one synthetic image to the model through the server API: 91 input tokens, 101 output tokens, 2.83 s request latency, and 60.19 tokens/s. It answered the tested shape question; the [image result](inference/evidence/image_run.json) is saved. The Flask page itself only accepts text, and the image run is a different workload from the text rows.
+### Second test (14 November)
 
-"CPU" in the table means the model ran on the CPU. I did **not** record CPU utilization (%) or RAM use during these A runs, so I do not have measured percentages to report.
+| Order | Where it ran | Input / output tokens | Request latency | Generation speed |
+| --- | --- | ---: | ---: | ---: |
+| 1 | CPU | 24 / 40 | 0.83 s | 54.07 tokens/s |
+| 2 | Intel Arc (Vulkan) | 24 / 38 | 0.90 s | 63.28 tokens/s |
+| 3 | CPU | 24 / 40 | 0.77 s | 54.40 tokens/s |
+| 4 | Intel Arc (Vulkan) | 24 / 38 | 0.99 s | 62.74 tokens/s |
+
+The first Vulkan request took much longer to finish than the others; we did not measure why. The Vulkan startup log showed all 25 model layers offloaded to Intel Arc. See the [test notes](inference/evidence/task6-hardware.md) and [raw run records](inference/evidence/task6_comparison_runs.json).
+
+I also sent one synthetic image through the server API: 91 input tokens, 101 output tokens, 2.83 s request latency, and 60.19 tokens/s. The [image result](inference/evidence/image_run.json) is saved. The Flask page only accepts text, and the image run is a different workload from the tables.
+
+"CPU" in the tables means the model ran on the CPU. I did **not** record CPU utilization (%) or RAM use during these A runs, so I do not have measured percentages to report.
 
 ## How this fits with Local LLM Lab
 
