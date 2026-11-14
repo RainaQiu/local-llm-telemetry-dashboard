@@ -2,6 +2,8 @@
 
 A local-first inference telemetry demo powered by `llama.cpp` `llama-server`. It displays the response and metrics for the same request.
 
+For the Sprint 2 team handoff, see [Member A handoff](MEMBER_A_HANDOFF.md).
+
 ## What It Includes
 
 - A Flask web app and JSON API bound to `127.0.0.1`.
